@@ -20,7 +20,7 @@ module.exports.getButtons = (host) => {
 		.setLabel('Enter')
 		.setStyle(buttons ? 'green' : 'SUCCESS')[buttons ? 'setID' : 'setCustomId'](`giveaways-enter-${host}`);
 
-	const b = [end, enter, reroll];
+	const b = [enter, end, reroll];
 	return b;
 };
 
@@ -66,12 +66,12 @@ module.exports.giveawayEmbed = async (client, { host, prize, endAfter, winners, 
 	if(requirements.roles) req += `\n Role(s): ${requirements.roles.map(x => `<@&${x}>`).join(', ')}`;
 	if(requirements.amariweekly) req += `\n Weekly Amari: \`${requirements.amariweekly}\``;
 	if(requirements.amarilevel) req += `\n Amari Level: \`${requirements.amarilevel}\``;
-	if(!req) req = 'None!';
+	if(!req) req = '\`None\`';
 	const embed = new Discord.MessageEmbed()
-		.setTitle('Giveaway! 🎉')
+		//.setTitle('Giveaway! 🎉')
 		.setDescription(`${client.customMessages.giveawayMessages.toParticipate}\n${(client.customMessages.giveawayMessages.giveawayDescription).replace(/{requirements}/g, req).replace(/{hostedBy}/g, hostedBy).replace(/{prize}/g, prize).replace(/{winners}/g, winners).replace(/{totalParticipants}/g, '0')}`)
-		.setColor('RANDOM')
-		.setFooter('Ends', client.customMessages.giveawayMessages.giveawayFooterImage)
+		.setColor('WHITE')
+		.setFooter('Ends at:')
 		.setTimestamp(Date.now() + ms(endAfter));
 	return embed;
 };

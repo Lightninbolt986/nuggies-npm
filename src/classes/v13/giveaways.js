@@ -77,11 +77,10 @@ class Giveaways {
 
 			if (message.client.customMessages.giveawayMessages.dmWinner) {
 				const dmEmbed = new Discord.MessageEmbed()
-					.setTitle('You Won!')
+					//.setTitle('You Won!')
 					.setDescription(replacePlaceholders(message.client.customMessages.giveawayMessages.dmMessage, data, msg, winners))
-					.setColor('RANDOM')
+					.setColor('WHITE')
 					.setThumbnail(msg.guild.iconURL({ dynamic: true }))
-					.setFooter('GG!');
 				winners.forEach((user) => {
 					message.guild.members.cache.get(user).send({
 						embeds: [dmEmbed]
@@ -91,9 +90,9 @@ class Giveaways {
 			if (message.client.customMessages.giveawayMessages.dmHost) {
 
 				const dmEmbed = new Discord.MessageEmbed()
-					.setTitle('Your giveaway ended!')
+					//.setTitle('Your giveaway ended!')
 					.setDescription(replacePlaceholders(message.client.customMessages.giveawayMessages.dmMessageHost, data, msg, winners))
-					.setColor('RANDOM')
+					.setColor('WHITE')
 					.setThumbnail(msg.guild.iconURL({
 						dynamic: true
 					}))
@@ -149,11 +148,10 @@ class Giveaways {
 		message.channel.send(replacePlaceholders(message.client.customMessages.giveawayMessages.winMessage, newData, msg, winners));
 		if (message.client.customMessages.giveawayMessages.dmWinner) {
 			const dmEmbed = new Discord.MessageEmbed()
-				.setTitle('You Won!')
+				//.setTitle('You Won!')
 				.setDescription(replacePlaceholders(message.client.customMessages.giveawayMessages.dmMessage, newData, msg, winners))
-				.setColor('RANDOM')
+				.setColor('WHITE')
 				.setThumbnail(msg.guild.iconURL({ dynamic: true }))
-				.setFooter('GG!');
 			winners.forEach((user) => {
 				message.guild.members.cache.get(user).send({
 					embeds: [dmEmbed]
@@ -163,9 +161,9 @@ class Giveaways {
 			if (message.client.customMessages.giveawayMessages.dmHost) {
 
 				const dmEmbed = new Discord.MessageEmbed()
-					.setTitle('Your giveaway ended!')
+					//.setTitle('Your giveaway ended!')
 					.setDescription(replacePlaceholders(message.client.customMessages.giveawayMessages.dmMessageHost, data, msg, winners))
-					.setColor('RANDOM')
+					.setColor('WHITE')
 					.setThumbnail(msg.guild.iconURL({
 						dynamic: true
 					}))
@@ -190,11 +188,10 @@ class Giveaways {
 		const chosen = await utils.choose(1, messageID);
 		if (!chosen) return [];
 		const dmEmbed = new Discord.MessageEmbed()
-			.setTitle('You Won!')
+			//.setTitle('You Won!')
 			.setDescription(replacePlaceholders(client.customMessages.giveawayMessages.dmMessage, data, msg, chosen))
-			.setColor('RANDOM')
+			.setColor('WHITE')
 			.setThumbnail(msg.guild.iconURL({ dynamic: true }))
-			.setFooter('GG!');
 		chosen.forEach((user) => {
 			client.users.cache.get(user).send({ embeds: [dmEmbed] });
 		});
@@ -236,11 +233,12 @@ class Giveaways {
 					const embed = msg.embeds[0];
 					let req = '';
 					const requirements = docs[i].requirements;
-					if(requirements.roles) req += `\n Role(s): ${requirements.roles.map(x => `<@&${x}>`).join(', ')}`;
-					if(requirements.amariweekly) req += `\n Weekly Amari: \`${requirements.amariweekly}\``;
-					if(requirements.amarilevel) req += `\n Amari Level: \`${requirements.amarilevel}\``;
-					if(!req) req = 'None!';
-					embed.description = `${client.customMessages.giveawayMessages.toParticipate}\n${(client.customMessages.giveawayMessages.giveawayDescription).replace(/{requirements}/g, req).replace(/{hostedBy}/g, `<@!${docs[i].host}>`).replace(/{prize}/g, docs[i].prize).replace(/{winners}/g, docs[i].winners).replace(/{totalParticipants}/g, docs[i].clickers.length.toString())}`;
+					if(requirements.roles) req += `\n<a:og_wsparkle:946704428889669672> Role(s): ${requirements.roles.map(x => `<@&${x}>`).join(', ')}`;
+					if(requirements.amariweekly) req += `\n<a:og_wsparkle:946704428889669672> Weekly Amari: \`${requirements.amariweekly}\``;
+					if(requirements.amarilevel) req += `\n<a:og_wsparkle:946704428889669672> Amari Level: \`${requirements.amarilevel}\``;
+					if(!req) req = '\`None\`';
+                    embed.color = "WHITE"
+					embed.description = `${(client.customMessages.giveawayMessages.giveawayDescription).replace(/{requirements}/g, req).replace(/{hostedBy}/g, `<@!${docs[i].host}>`).replace(/{prize}/g, docs[i].prize).replace(/{winners}/g, docs[i].winners).replace(/{totalParticipants}/g, docs[i].clickers.length.toString())}`;
 					msg.edit({ embeds: [embed] });
 				}
 			}, 10 * 1000);
@@ -270,3 +268,4 @@ function replacePlaceholders(string, data, msg, winners = []) {
 	return newString;
 }
 module.exports = Giveaways;
+

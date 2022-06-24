@@ -36,4 +36,8 @@ const schema = new mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model('giveaways', schema);
+module.exports = {
+  execute(name = "giveaways") {
+    return mongoose.model(name, schema);
+  },
+};
